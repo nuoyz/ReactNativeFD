@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderColor: '#e5e5e5',
-    borderStyle: 'solid',
+    //borderStyle: 'solid',
     borderRadius: 20
   },
   'questionList-anwser-voice': {
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
 });
 
 function playVoice(url, data) {
-
   fetch('http://fd.zaih.com/api/v2/questions/90000035338507011128/listen',
        {
         method: 'post',
@@ -131,7 +130,7 @@ function questionListRender(data) {
               style={{
                 width: 16,
                 height: 16,
-                fontSize: 16,
+                //fontSize: 16,
                 marginRight: 20
               }}
             />
@@ -183,7 +182,7 @@ function questionListRender(data) {
                   top: 0
                 }}
                 source={require('./img/recommendTag.png')}
-              /> : <Text></Text>
+              /> : null
           }
           <Text
             style={{
@@ -219,7 +218,9 @@ class QuestionList extends Component {
   static contextTypes = {}
   constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => {
+      return r1 !== r2;
+    }});
     this.state = {
       ds,
       questionList: ds.cloneWithRows([]),
@@ -228,7 +229,30 @@ class QuestionList extends Component {
   state = {
     questionList: []
   }
-
+  endReachedFetchData = () => {
+    const {min_id, order_score} = this.state;
+    let {page} = this.state;
+    fetch(`http://fd.zaih.com/feed_api/v1/self/timeline?page=${page}&per_page=20&min_id=${min_id}&order_score=${order_score}`,
+     {method: 'get'})
+     .then((res) => {
+         return res.json();
+     })
+     .then((response) => {
+        if (response) {
+          const {questionListArray = []} = this.state;
+          const lastArrEle = response[response.length - 1];
+          const newPage = page++;
+          const newQuestionList = [...response, ...questionListArray];
+          this.setState({
+            questionListArray: newQuestionList,
+            questionList: this.state.ds.cloneWithRows(newQuestionList),
+            min_id: lastArrEle.id,
+            order_score: lastArrEle['order_score'],
+            page: newPage
+          });
+        }
+     });
+  }
   componentWillMount() {
     fetch('http://fd.zaih.com/feed_api/v1/self/timeline?page=1&per_page=20&is_refresh=true',
          {
@@ -236,7 +260,16 @@ class QuestionList extends Component {
          }).then((res) => {
              return res.json();
          }).then((response) => {
-          this.setState({questionList: this.state.ds.cloneWithRows(response)});
+           if (response) {
+            const lastArrEle = response[response.length - 1];
+             this.setState({
+              questionListArray: response,
+              questionList: this.state.ds.cloneWithRows(response),
+              min_id: lastArrEle.id,
+              order_score: lastArrEle['order_score'],
+              page: 2
+            });
+           }
          });
   }
   render() {
@@ -253,7 +286,16 @@ class QuestionList extends Component {
        style={styles.questionList}
       >
         <ListView
+          enableEmptySections
           dataSource={questionList}
+          initialListSize={20}
+          onEndReachedThreshold={40}
+          automaticallyAdjustContentInsets={false}
+          onEndReached={
+             ()=>{
+               this.endReachedFetchData()
+             }
+          }
           renderRow={(rowData) => {
             return (questionListRender(rowData));
           }}

@@ -16,14 +16,14 @@ class Footer extends Component {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          border: '1px solid black'
         }}
       >
-       {['首页', '快问', '找人', '我的'].map((item)=>{
+       {['首页', '快问', '找人', '我的'].map((item, index)=>{
          return (
           <TouchableOpacity
+            key={`footbar-${index}`}
             onPress={()=>{
-              console.log('item', item);
+              //console.log('item', item);
             }}
           >
             <Text>

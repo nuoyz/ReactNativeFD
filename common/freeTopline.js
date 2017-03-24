@@ -73,17 +73,17 @@ function playVoice(url, data) {
            //console.info('res', res.json());
            return res.json();
        }).then((response) => {
-        console.info('response22222 response', response);
+        //console.info('response22222 response', response);
         ReactNativeAudioStreaming.play(
           response.url,
           {showIniOSMediaCenter: true, showInAndroidNotifications: true}
         );
        }).catch((err)=>{
-          console.log('error', err)
+          //console.log('error', err)
        });
 }
 function freeTopLineListRender(data) {
-  console.log('freeTopLineListRender', data.respondent);
+  //console.log('freeTopLineListRender', data.respondent);
   return (
     <View
       style={styles['freeTopLineList-item']}
@@ -140,10 +140,10 @@ function freeTopLineListRender(data) {
           <TouchableOpacity
             onPress={
               () => {
-                console.log('1111111112222222222', data);
+                //console.log('1111111112222222222', data);
                 if (data.action === 'free_recommend') {
                   const listenUrl = `http://fd.zaih.com/api/v2/questions/${data.question.id}/liste`;
-                  console.info('question data', data);
+                  //console.info('question data', data);
                   playVoice(listenUrl, {source: 'ios', voice_id: data.question.answer.voice_id});
                 }
               }
@@ -229,7 +229,7 @@ class FreeTopLine extends Component {
              //console.info('res', res.json());
              return res.json();
          }).then((response) => {
-          console.info('resssponse response', response);
+          //console.info('resssponse response', response);
           this.setState({freeTopLineList: this.state.ds.cloneWithRows(response)});
          });
   }
@@ -242,7 +242,7 @@ class FreeTopLine extends Component {
         </Text>
       );
     }
-    console.log('freeTopLineList', freeTopLineList);
+    //console.log('freeTopLineList', freeTopLineList);
     //const questionListItems = questionList.map(questionTemp);
     return (
       <View

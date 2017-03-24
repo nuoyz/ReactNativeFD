@@ -136,7 +136,7 @@ class LoginPage extends Component {
             b = 0;
           }, 1000);
         }
-        console.log(gs.dx+' '+gs.dy)
+        //console.log(gs.dx+' '+gs.dy)
       },
       onPanResponderRelease: (evt,gs)=>{
         this.setState({

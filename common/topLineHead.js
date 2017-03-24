@@ -6,36 +6,30 @@ const styles = {
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'center',
-    color: '#e5e5e5',
-    fontSize: 15
+    //color: '#e5e5e5', isInvalid
+    //fontSize: 15
   },
   'headline-body': {
     width: 390,
     paddingLeft: 20,
     paddingRight: 20,
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomStyle: 'solid',
-    borderBottoColor: 'red',
     justifyContent: 'space-between',
     alignItems: 'center',
-    fontSize: 14
+    //fontSize: 14
   },
   'headline-header': {
     flexDirection: 'row',
     alignItems: 'center'
   },
   'text-daily': {
-    textAlign: 'center',
-    color: '#fff',
+    //color: '#fff', isInvalid
     width: 92,
     height: 28,
     marginRight: 6,
     backgroundColor: '#f85f48',
-    borderTopWidtn: 1,
-    borderBottomWidtn: 1,
+    borderTopWidth: 1,
     borderTopLeftRadius: 15,
-    borderBottomRightRadius: 15,
     alignItems: 'center'
   }
 };

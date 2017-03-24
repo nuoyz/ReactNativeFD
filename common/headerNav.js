@@ -52,7 +52,7 @@ class HeaderNav extends Component {
   }
   render() {
     const { navigate} = this.props.navigation;
-    console.info('navigate navigate', navigate);
+    //console.info('navigate navigate', navigate);
     return (
       <View
         style={styles.header}
@@ -63,7 +63,7 @@ class HeaderNav extends Component {
           <View
             style={styles['nav-active']}
             onClick={()=>{
-              console.log('555555');
+              //console.log('555555');
             }}
           >
             <Text
@@ -72,7 +72,7 @@ class HeaderNav extends Component {
                 lineHeight: 36,
               }}
               onPress={() => {
-                console.log('11111111111111');
+                //console.log('11111111111111');
               }}
             >
               收听
@@ -81,7 +81,7 @@ class HeaderNav extends Component {
           <View>
             <TouchableOpacity
               onPress={() => {
-                console.log('222222222222');
+                //console.log('222222222222');
                 //const { navigator } = this.props;
                 navigate('Home')
                 /*navigator.push({

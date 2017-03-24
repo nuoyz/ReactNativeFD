@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
     borderWidth: 1,
     borderColor: '#e5e5e5',
-    borderStyle: 'solid',
+    //borderStyle: 'solid',
     borderRadius: 20
   },
   'headline-item-info': {
@@ -37,16 +37,92 @@ const styles = StyleSheet.create({
     color: '#333'
   },
   'headline-item-name': {
-    fontSize: 13,
-    color: '#b3b3b3'
+    //fontSize: 13,
+    //color: '#b3b3b3'
   }
 });
-function dailyHeadlinesRender(data, index) { 
-  console.info('datasss', data);
+function dailyHeadlinesRender(data, index) {
   const voiceUrl = data.answer.voice;
   if (a) {//test voice
     a = false;
   }
+  return (
+      <View
+        key={`dailyHeadlinesList-${index}`}
+        style={styles['headline-item']}
+      >
+        <View
+          role="presentation"
+        > 
+           <TouchableHighlight
+              onPress={
+                () => {
+                  //console.log('duble click 666666666');
+                  if (!this.state.voiceStatePlay) {
+                    ReactNativeAudioStreaming
+                      .play(voiceUrl, {
+                        showIniOSMediaCenter: true,
+                        showInAndroidNotifications: true
+                      });
+                    this.setState({voiceStatePlay: true})
+                  } else {
+                    ReactNativeAudioStreaming
+                      .pause();
+                    this.setState({voiceStatePlay: true})
+                  }
+                }
+              }
+          >
+            <View>
+            {
+              this.state.voiceStatePlay ?
+              <Image
+                source={require('./img/voicepause.png')}
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  left: 12,
+                  zIndex: 2,
+                  width: 14,
+                  height: 14
+                }}
+              /> :
+              <Image
+                source={require('./img/voiceplay.png')}
+                style={{
+                  position: 'absolute',
+                  top: 14,
+                  left: 12,
+                  zIndex: 2,
+                  width: 14,
+                  height: 14
+                }}
+              />
+            }
+            <Image
+              style={styles['headline-item-avatar']}
+              source={{uri: data.respondent.avatar}}
+            />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View
+          style={styles['headline-item-info']}
+        >
+          <Text
+            style={styles['headline-item-title']}
+          >
+            {data['short_title']}
+          </Text>
+          <View
+            style={styles['headline-item-name']}
+          >
+            <Text>{data.respondent.nickname}</Text>
+            <Text>{data.respondent.title}</Text>
+          </View>
+        </View>
+      </View>
+    )
   return (
     <View
       key={`dailyHeadlinesList-${index}`}
@@ -56,21 +132,23 @@ function dailyHeadlinesRender(data, index) {
         role="presentation"
       > 
          <TouchableHighlight
-            onPress={() => {
-              console.log('duble click 666666666');
-              if (!this.state.voiceStatePlay) {
-                ReactNativeAudioStreaming
-                  .play(voiceUrl, {
-                    showIniOSMediaCenter: true,
-                    showInAndroidNotifications: true
-                  });
-                this.setState({voiceStatePlay: true})
-              } else {
-                ReactNativeAudioStreaming
-                  .pause();
-                this.setState({voiceStatePlay: true})
+            onPress={
+              () => {
+                //console.log('duble click 666666666');
+                if (!this.state.voiceStatePlay) {
+                  ReactNativeAudioStreaming
+                    .play(voiceUrl, {
+                      showIniOSMediaCenter: true,
+                      showInAndroidNotifications: true
+                    });
+                  this.setState({voiceStatePlay: true})
+                } else {
+                  ReactNativeAudioStreaming
+                    .pause();
+                  this.setState({voiceStatePlay: true})
+                }
               }
-            }}
+            }
         >
           {
             this.state.voiceStatePlay ?
@@ -109,14 +187,14 @@ function dailyHeadlinesRender(data, index) {
         <Text
           style={styles['headline-item-title']}
         >
-          {data.short_title}
+          {data['short_title']}
         </Text>
-        <Text
+        <View
           style={styles['headline-item-name']}
         >
           <Text>{data.respondent.nickname}</Text>
           <Text>{data.respondent.title}</Text>
-        </Text>
+        </View>
       </View>
     </View>
   )
@@ -131,12 +209,19 @@ class DailyHeadlinesList extends Component {
     fetch('https://apis-fd.zaih.com/v1/topline?type=selected&offset=0&limit=20',//http://fd.zaih.com/topline_api/v1/headlines/digest
      {
       method: 'get'
-     }).then((res) => {
+     })
+      .then((res) => {
          return res.json();
-     }).then((response) => {
-      this.setState({dailyHeadlinesList: response});
-      this.forceUpdate();
-     });
+       })
+      .then((response) => {
+        if (response) {
+          this.setState({dailyHeadlinesList: response});
+          this.forceUpdate();
+        }
+       })
+      .catch((error)=>{
+         console.log('error', error);
+      });
   }
   render() {
     const {dailyHeadlinesList} = this.state;

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 });
 
 function SpeechesItemRender(data) {
-  console.log('questionListRender', data);
+  //console.log('questionListRender', data);
   return (
     <View
       style={styles['speeches-item']}
@@ -142,7 +142,7 @@ class SpeechesAll extends Component {
              //console.info('res', res.json());
              return res.json();
          }).then((response) => {
-          console.info('responsess response', response);
+          //console.info('responsess response', response);
           this.setState({speechesList: this.state.ds.cloneWithRows(response)});
          });
   }
@@ -155,7 +155,7 @@ class SpeechesAll extends Component {
         </Text>
       );
     }
-    console.log('speechesList', speechesList);
+    //console.log('speechesList', speechesList);
     return (
       <View
        style={styles.speechesList}

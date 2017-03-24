@@ -37,7 +37,7 @@ class HomePage extends Component {
   state = {
     modalVs: false,
   }
-  componentWillMount() {
+ /* componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: ()=> true,
@@ -51,7 +51,7 @@ class HomePage extends Component {
           a++;
           const {navigate} = this.props.navigation;
           navigate('SpeechesAll');
-          /*navigator.push({
+          lllll/*navigator.push({
               name: 'loginPageComponent',
               component: LoginPage,
               //这里多出了一个 params 其实来自于<Navigator 里的一个方法的参数...
@@ -59,8 +59,8 @@ class HomePage extends Component {
                   id: 'loginPageComponent'
               },
               sceneConfig: Navigator.SceneConfigs.FloatFromRight
-          });*/
-
+          });llllll*/
+/*
         }
         setTimeout(() => {
           a = 0;
@@ -74,12 +74,12 @@ class HomePage extends Component {
           left: this._left+gs.dx
       })}
     });
-  }
+  }*/
   render() {
-    console.info('this.props.navigation', this.props.navigation);
+    //console.info('this.props.navigation', this.props.navigation);
     return (
       <View
-        {...this._panResponder.panHandlers}
+        //{...this._panResponder.panHandlers}
         style={{
           flex: 1,
           flexDirection: 'column',

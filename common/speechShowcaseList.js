@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
 });
 function speechListRender (data, index) {//[]
-  console.info('speechListRenderdata', data);
+  //console.info('speechListRenderdata', data);
   return (
     <View
       key={`speechList-${index}`}
@@ -74,7 +74,7 @@ function speechListRender (data, index) {//[]
               left: 4
             }}
             source={require('./img/newtag.png')}
-          /> : <Text></Text>
+          /> : null
         }
         <Image
           style={styles['speechList-item-img']}
@@ -126,7 +126,7 @@ class SpeechShowcaseList extends Component {
              //console.info('res', res.json());
              return res.json();
          }).then((response) => {
-          console.info('response response', response);
+          //console.info('response response', response);
           this.setState({speechList: response});
          });
   }
@@ -159,7 +159,7 @@ class SpeechShowcaseList extends Component {
             <Text
               style={{
                 fontSize: 13,
-                cplor: '#999'
+                color: '#999'
               }}
             >
               查看答案
