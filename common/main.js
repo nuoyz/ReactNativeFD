@@ -1,5 +1,5 @@
 import React, {Component, propTypes} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import TopLineHead from './topLineHead';
 import DailyHeadlinesList from './dailyHeadlinesList';
 import SpeechShowcaseList from './speechShowcaseList';
@@ -16,10 +16,12 @@ class Main extends Component {
         //backgroundColor: '#f5f5f5'
        }}
       >
-        <TopLineHead/>
-        <DailyHeadlinesList/>
-        <SpeechShowcaseList/>
-        <QuestionList/>
+        <ScrollView>
+          <TopLineHead/>
+          <DailyHeadlinesList/>
+          <SpeechShowcaseList/>
+          <QuestionList/>
+        </ScrollView>
       </View>
     )
   }

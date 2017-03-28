@@ -21,6 +21,7 @@ import HomePage from './common/homePage';
 import LoginPage from './common/loginPage';
 import FreeTopLine from './common/freeTopline';
 import SpeechesAll from './common/speechesAll';
+import LoginVerify from './common/loginVerify';
 const styles = {};
 
 class AP extends Component {
@@ -99,9 +100,10 @@ const styles2 = StyleSheet.create({
 });
 
 const App = StackNavigator({
-  Home: { screen: AP },
+  Home: { screen: AP},
   Login: {screen: LoginPage},
-  SpeechesAll: {screen: SpeechesAll}
+  SpeechesAll: {screen: SpeechesAll},
+  loginVerify: {screen: LoginVerify}
 },{
   headerMode: 'none',
   mode: 'card',

@@ -10,17 +10,24 @@ import {
   Text,
   View,
   ScrollView,
+  WebView,
   PanResponder,
   LayoutAnimation,
   TouchableOpacity,
   Navigator
 } from 'react-native';
 //var styles = require('./Dashboard.css');
-import HeaderNav from './headerNav.js';
-import LoginPage from './loginPage';
-import Footerbar from './footerbar';
+import SpeechesAll from './speechesAll.js';
+import LoginPage from './loginPage.js';
+//import Footerbar from './footerbar';
 import Main from './main';
 import {navigation} from 'react-navigation';
+import ScrollableTabView from  'react-native-scrollable-tab-view';//Header
+import TabNavigator from 'react-native-tab-navigator';//Footer
+const TabNavigatorItem = TabNavigator.Item;
+var Dimensions = require('Dimensions');
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 const styles = {};
 let a = 0;
 class HomePage extends Component {
@@ -36,47 +43,29 @@ class HomePage extends Component {
   };
   state = {
     modalVs: false,
+    selectedTab: 'home'
   }
- /* componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: ()=> true,
-      onPanResponderGrant: ()=>{
-        this._top = this.state.top
-        this._left = this.state.left
-        this.setState({bg: 'red'})
-      },
-      onPanResponderMove: (evt,gs)=>{
-        if (gs.dx < 0 && a === 0) {
-          a++;
-          const {navigate} = this.props.navigation;
-          navigate('SpeechesAll');
-          lllll/*navigator.push({
-              name: 'loginPageComponent',
-              component: LoginPage,
-              //这里多出了一个 params 其实来自于<Navigator 里的一个方法的参数...
-              params: {
-                  id: 'loginPageComponent'
-              },
-              sceneConfig: Navigator.SceneConfigs.FloatFromRight
-          });llllll*/
-/*
-        }
-        setTimeout(() => {
-          a = 0;
-        }, 1000);
-        console.log(gs.dx+' '+gs.dy)
-      },
-      onPanResponderRelease: (evt,gs)=>{
-        this.setState({
-          bg: 'white',
-          top: this._top+gs.dy,
-          left: this._left+gs.dx
-      })}
-    });
-  }*/
+  tempWebView = (config) => {
+    return (
+      <View>
+        <WebView
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          decelerationRate="normal"
+          automaticallyAdjustContentInsets={false}
+          startInLoadingState={true}
+          injectedJavaScript="alert('hello zc')"
+          source={{uri: config.uri}}
+          style={{
+            width: 200,
+            height: 200
+          }}
+        >
+        </WebView>
+      </View>
+    );
+  }
   render() {
-    //console.info('this.props.navigation', this.props.navigation);
     return (
       <View
         //{...this._panResponder.panHandlers}
@@ -88,18 +77,83 @@ class HomePage extends Component {
           justifyContent: 'center'
         }}
       >
-        <HeaderNav
-          navigation={this.props.navigation}
-        />
-        <ScrollView>
-          <Main
-            navigation={this.props.navigation}
-          />
-        </ScrollView>
-         <Footerbar/>
+        <TabNavigator>
+          <TabNavigator.Item
+            titleStyle={{
+              fontSize: 24
+            }}
+            selected={this.state.selectedTab === 'home'}
+            title="首页"
+            onPress={() => this.setState({ selectedTab: 'home' })}>
+              <ScrollableTabView
+                tabBarUnderlineStyle="red"
+                tabBarBackgroundColor="#fff"
+                tabBarActiveTextColor="#333"
+                tabBarInactiveTextColor="gray"
+                tabBarUnderlineStyle={{
+                  borderBottomStyle: 'none'
+                }}
+              >
+                <Main tabLabel="收听"
+                  navigation={this.props.navigation}
+                />
+                <SpeechesAll tabLabel="小讲"/>
+              </ScrollableTabView>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'question'}
+            titleStyle={{
+              alignSelf: 'center',
+              fontSize: 24
+            }}
+            title="快问"
+            onPress={() => this.setState({ selectedTab: 'question' })}>
+              <View
+                style={{
+                  width,
+                  height,
+                }}
+              >
+                {this.tempWebView({uri: '//http://fd.zaih.com/rewardboard'})}
+              </View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            titleStyle={{
+              fontSize: 24
+            }}
+            selected={this.state.selectedTab === 'find'}
+            title="找人"//
+            onPress={() => this.setState({ selectedTab: 'find' })}>
+              {this.tempWebView({uri: 'http://fd.zaih.com/find'})}
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            titleStyle={{
+              fontSize: 24
+            }}
+            selected={this.state.selectedTab === 'mine'}
+            title="我的"
+            onPress={() => this.setState({ selectedTab: 'mine' })}>
+              <LoginPage/>
+          </TabNavigator.Item>
+        </TabNavigator>
       </View>
     );
   }
 }
 export default HomePage;
-
+/*
+<ScrollableTabView
+  tabBarUnderlineStyle="red"
+  tabBarBackgroundColor="#fff"
+  tabBarActiveTextColor="#333"
+  tabBarInactiveTextColor="gray"
+  tabBarUnderlineStyle={{
+    borderBottom: 'none'
+  }}
+>
+  <Main tabLabel="收听"
+    navigation={this.props.navigation}
+  />
+  <SpeechesAll tabLabel="小讲"/>
+</ScrollableTabView>
+*/
