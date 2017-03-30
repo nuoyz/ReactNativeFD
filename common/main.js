@@ -10,6 +10,8 @@ class Main extends Component {
   static propTypes = {}
   static contextTypes = {}
   render() {
+    const {navigation = {}} = this.props;
+    //console.log('navigation', this.props.navigation);
     return (
       <View
        style={{
@@ -17,7 +19,7 @@ class Main extends Component {
        }}
       >
         <ScrollView>
-          <TopLineHead/>
+          <TopLineHead navigation={navigation}/>
           <DailyHeadlinesList/>
           <SpeechShowcaseList/>
           <QuestionList/>

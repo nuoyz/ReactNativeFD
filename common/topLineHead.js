@@ -71,7 +71,7 @@ class TopLineHead extends Component {
           </View>
           <TouchableOpacity
             onPress={()=>{
-              const {navigate} = this.props.navigation;
+              const {navigate = {}} = this.props.navigation;
               navigate('Login');
             }}
           >

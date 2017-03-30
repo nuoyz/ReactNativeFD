@@ -49,6 +49,22 @@ class HeaderNav extends Component {
   static propTypes = {}
   static contextTypes = {}
   componentWillMount() {
+    fetch('https://apis-fd.zaih.com/v1/topline?type=selected&offset=0&limit=20',//http://fd.zaih.com/topline_api/v1/headlines/digest
+     {
+      method: 'get'
+     })
+      .then((res) => {
+         return res.json();
+       })
+      .then((response) => {
+        if (response) {
+          this.setState({dailyHeadlinesList: response});
+          this.forceUpdate();
+        }
+       })
+      .catch((error)=>{
+         console.log('error', error);
+      });
   }
   render() {
     const { navigate} = this.props.navigation;

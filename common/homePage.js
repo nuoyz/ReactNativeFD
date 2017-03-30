@@ -47,25 +47,25 @@ class HomePage extends Component {
   }
   tempWebView = (config) => {
     return (
-      <View>
+      <View
+       style={{
+         marginTop: -70,
+         width,
+         height,
+       }}
+      >
         <WebView
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          decelerationRate="normal"
-          automaticallyAdjustContentInsets={false}
-          startInLoadingState={true}
-          injectedJavaScript="alert('hello zc')"
           source={{uri: config.uri}}
           style={{
-            width: 200,
-            height: 200
+            width,
+            height,
           }}
-        >
-        </WebView>
+        />
       </View>
     );
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View
         //{...this._panResponder.panHandlers}
@@ -94,8 +94,8 @@ class HomePage extends Component {
                   borderBottomStyle: 'none'
                 }}
               >
-                <Main tabLabel="收听"
-                  navigation={this.props.navigation}
+                <Main
+                  navigation={navigation}
                 />
                 <SpeechesAll tabLabel="小讲"/>
               </ScrollableTabView>
@@ -114,7 +114,7 @@ class HomePage extends Component {
                   height,
                 }}
               >
-                {this.tempWebView({uri: '//http://fd.zaih.com/rewardboard'})}
+                {this.tempWebView({uri: 'http://fd.zaih.com/rewardboard'})}
               </View>
           </TabNavigator.Item>
           <TabNavigator.Item
@@ -133,7 +133,9 @@ class HomePage extends Component {
             selected={this.state.selectedTab === 'mine'}
             title="我的"
             onPress={() => this.setState({ selectedTab: 'mine' })}>
-              <LoginPage/>
+              <LoginPage
+                navigation={this.props.navigation}
+              />
           </TabNavigator.Item>
         </TabNavigator>
       </View>

@@ -3,8 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
+  TouchableOpacity,
   ScrollView,
-  PanResponder
+  PanResponder,
+  AsyncStorage
 } from 'react-native';
 import HeaderNav from './headerNav.js';
 //import Footer from './footer';
@@ -32,7 +35,10 @@ const styles = StyleSheet.create({
     flexShrink: 2,*/
     justifyContent: 'space-around',
     alignItems: 'center',
+    flex: 1,
     height: 140,
+    paddingRight: 10,
+    paddingLeft: 10,
     backgroundColor: 'white',
   },
   userPhoto: {
@@ -90,7 +96,34 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     
-  }
+  },
+  userHeader: {
+    justifyContent: 'flex-start'
+  },
+  userInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  userAvatar: {
+    width: 40,
+    height: 40,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 20
+  },
+  userHeaderH3: {
+    fontSize: 13,
+    color: 'gray'
+  },
+  userHeaderH4: {
+    fontSize: 15,
+    color: 'red'
+  },
+  userHeaderH5: {
+    marginTop: 4,
+    fontSize: 13,
+    color: 'gray'
+  },
 });
 
 class LoginPage extends Component {
@@ -101,6 +134,7 @@ class LoginPage extends Component {
         }
       };
   static propTypes = {
+    params: PropTypes.object
   };
   static contextTypes = {
     //store: PropTypes.object.isRequired
@@ -109,48 +143,109 @@ class LoginPage extends Component {
     modalVs: false,
   }
   componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: ()=> true,
-      onPanResponderGrant: ()=>{
-        this._top = this.state.top
-        this._left = this.state.left
-        this.setState({bg: 'red'})
-      },
-      onPanResponderMove: (evt,gs)=>{
-        const { navigator } = this.props;
-        if (gs.dx > 0 && b === 0) {
-          b++;
-          const {navigate} = this.props.navigation;
-          navigate('Home');
-          /*navigator.push({
-              name: 'HomePageComponent',
-              component: HomePage,
-              //这里多出了一个 params 其实来自于<Navigator 里的一个方法的参数...
-              params: {
-                  id: 'HomePageComponent'
-              },
-              sceneConfig: Navigator.SceneConfigs.FloatFromLeft
-          });*/
-          setTimeout(() => {
-            b = 0;
-          }, 1000);
+    const { params = {} } = this.props.navigation.state;
+    let access_token;
+    if (params.split) {//isObject
+      access_token = (eval(params)['access_token']);
+    } else {
+      const loginInfo = AsyncStorage.getItem('loginInfo');
+      if (loginInfo) {
+        access_token = (eval(params)['access_token']);
+      }
+    }
+    
+    //const params = {};
+    console.info('params params', access_token);
+    //const test = eval(params);
+    fetch('https://apis-fd.zaih.com/v1/accounts/self',
+     {
+      method: 'get',
+      headers:{
+        'Authorization': `Bearer ${access_token}`
+      }
+     })
+      .then((res) => {
+         return res.json();//可能会报错 报错则以 res.text 替代
+       })
+      .then((response) => {
+        if (response) {
+          console.log('eeeeselfinfo', response);
+          this.setState({selfInfo: response});
         }
-        //console.log(gs.dx+' '+gs.dy)
-      },
-      onPanResponderRelease: (evt,gs)=>{
-        this.setState({
-          bg: 'white',
-          top: this._top+gs.dy,
-          left: this._left+gs.dx
-      })}
-    });
+      })
+      .catch((error)=>{
+         console.log('error', error);
+      });
+  }
+  templLoginHader = (selfInfo) => {
+    return (
+      <View style={styles.userHeader}>
+        <View style={styles.userInfo}>
+          <View
+            style={{
+              flexDirection: 'row'
+            }}
+          >
+            <Image
+              source={{uri: `${selfInfo.avatar || 'https://medias.zaih.com/gdc37159wlw5nx9t9akek9w3wthddgta!avatar'}`}}
+              style={styles.userAvatar}
+            />
+            <Text
+              style={{
+                //fontWeight: 600,
+                marginLeft:8,
+                fonStyle: 'bold',
+                fontSize: 13,
+                alignSelf: 'center'
+              }}
+            >
+              {selfInfo.nickname}
+            </Text>
+          </View>
+          <TouchableOpacity>
+            <View
+              style={{
+                width: 80,
+                height: 30,
+                borderStyle: 'solid',
+                backgroundColor: 'red',
+                borderColor: 'red',
+                borderWidth: 1,
+                borderRadius: 16
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: 'white',
+                  lineHeight: 24,
+                  textAlign: 'center',
+                  verticalAligin: 'middle'
+                }}
+              >
+                开通分答
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.userHeaderH3}>
+          开通分答主页,邀请好友向你提问，回答后被他人偷听，可持续获得收入
+        </Text>
+        <Text style={styles.userHeaderH4}>
+          {`总收入￥${selfInfo['questions_count']}  总收益￥${selfInfo['recourse_replies_count']}`}
+        </Text>
+        <Text style={styles.userHeaderH5}>
+          收入90%归你，每夜结算，自动入库微信钱包
+        </Text>
+      </View>
+    );
   }
   render() {
-    const {navigator} = this.props;
+    const {navigate} = this.props.navigation;
+    const {selfInfo = {}} = this.state;
+    console.log('selfInfo', selfInfo);
     return (
       <View
-        {...this._panResponder.panHandlers}
         style={styles.login}
       >
         <View
@@ -180,32 +275,43 @@ class LoginPage extends Component {
           >
             <View
               style={styles.loginPanel}
-            >
-              <View
-                style={styles.userPhoto}
-              >
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: 'white'
-                  }}
-                >
-                  头像
-                </Text>
-              </View>
-              <View
-                style={styles.loginButton}
-              >
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: 'white'
-                  }}
-                >
-                  登录
-                </Text>
-              </View>
-            </View>
+            >{selfInfo.avatar ? this.templLoginHader(selfInfo) :
+              (<View>
+                  <View
+                    style={styles.userPhoto}
+                  >
+                    <Text
+                      style={{
+                        textAlign: 'center',
+                        color: 'white'
+                      }}
+                    >
+                      头像
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    onPress={
+                      ()=>{
+                        navigate('LoginVerify');
+                      }
+                    }
+                  >
+                    <View
+                      style={styles.loginButton}
+                    >
+                      <Text
+                        style={{
+                          textAlign: 'center',
+                          color: 'white'
+                        }}
+                      >
+                        登录
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View> 
             <View
               style={styles.user}
             >
@@ -223,6 +329,37 @@ class LoginPage extends Component {
                   >
                 </Text>
               </View>
+              {selfInfo ? (
+                <View
+                  style={{
+                    height: 40,
+                    backgroundColor: 'white',
+                    flexDirection: 'row',
+                    borderStyle: 'solid',
+                    paddingLeft: 8,
+                    paddingRight: 8,
+                    borderBottomWidth: 1,
+                    borderColor: '#e5e5e5',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我的分币
+                  </Text>
+                  <Text
+                    style={{
+                      color: 'red'
+                    }}
+                  >
+                    {`${selfInfo.bounce || 1200} >`}
+                  </Text>
+                </View>
+              ) : null}
               <View
                 style={styles.userListStyle}
               >
