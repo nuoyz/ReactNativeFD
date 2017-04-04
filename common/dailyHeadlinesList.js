@@ -1,6 +1,6 @@
-import React, {Component, propTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {View, Text, Image ,StyleSheet, TouchableHighlight} from 'react-native';
-//import Superagent from 'superagent';
+import {observer, inject} from 'mobx-react';
 let a = true;
 import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
 const styles = StyleSheet.create({
@@ -199,32 +199,22 @@ function dailyHeadlinesRender(data, index) {
     </View>
   )
 }
+@inject('dailyHLiStore')
+@observer
 class DailyHeadlinesList extends Component {
-  static propTypes = {}
+  static propTypes = {
+    dailyHLiStore: PropTypes.object
+  }
   static contextTypes = {}
   state = {
     voiceStatePlay: false,
   }
-  componentWillMount() {//http://apis-fd.zaih.com/v1/topline?type=selected&offset=0&limit=20
-    fetch('https://apis-fd.zaih.com/v1/topline?type=selected&offset=0&limit=20',//http://fd.zaih.com/topline_api/v1/headlines/digest
-     {
-      method: 'get'
-     })
-      .then((res) => {
-         return res.json();
-       })
-      .then((response) => {
-        if (response) {
-          this.setState({dailyHeadlinesList: response});
-          this.forceUpdate();
-        }
-       })
-      .catch((error)=>{
-         console.log('error', error);
-      });
+  componentWillMount() {
+    const {dailyHLiStore} = this.props;
+    dailyHLiStore.getdailyHLData();
   }
   render() {
-    const {dailyHeadlinesList} = this.state;
+    const {dailyHLiStore: {dailyHeadlinesList}} = this.props;
     if (!dailyHeadlinesList) {
       return (
         <Text>

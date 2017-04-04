@@ -1,6 +1,7 @@
 import React, {Component, propTypes} from 'react';
 import {View, Text, Image, ListView, StyleSheet, TouchableOpacity} from 'react-native';
 import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+import {observable, action} from 'mobx'
 const styles = StyleSheet.create({
   'questionList': {
     //backgroundColor: 'white',
@@ -193,23 +194,31 @@ function questionListRender(data) {
             {data.actor.title}
           </Text>
         </View>
-        <View
-          style={{
-            width: 48,
-            height: 29,
-            marginTop: 6,
-            marginRight: 14,
-          }}
+        <TouchableOpacity
+          onPress={
+            ()=>{
+              //写一个action 来处理
+            }
+          }
         >
-          <Image
+          <View
             style={{
               width: 48,
               height: 29,
+              marginTop: 6,
+              marginRight: 14,
             }}
-            source={require('./img/follow.png')}
-          />
-        </View>
-      </View>
+          >
+            <Image
+              style={{
+                width: 48,
+                height: 29,
+              }}
+              source={require('./img/follow.png')}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>  
     </View>
   );
 }
@@ -228,6 +237,22 @@ class QuestionList extends Component {
   }
   state = {
     questionList: []
+  }
+  @observable userFollow = false;
+  @action addFollowbyId() {
+    fetch('https://apis-fd.zaih.com/v1/accounts/587477606/follow',
+      method: 'post'
+    )
+    .then((res)=>{
+      res.json()
+    })
+    .then(()=>{
+      res.response();
+      this.userFollow
+    })
+    .catch((err)=>{
+      console.log('err', err);
+    })
   }
   endReachedFetchData = () => {
     const {min_id, order_score} = this.state;

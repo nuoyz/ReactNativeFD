@@ -16,10 +16,8 @@ import {
   TouchableOpacity,
   Navigator
 } from 'react-native';
-//var styles = require('./Dashboard.css');
 import SpeechesAll from './speechesAll.js';
 import LoginPage from './loginPage.js';
-//import Footerbar from './footerbar';
 import Main from './main';
 import {navigation} from 'react-navigation';
 import ScrollableTabView from  'react-native-scrollable-tab-view';//Header

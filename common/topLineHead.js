@@ -30,6 +30,7 @@ const styles = {
     backgroundColor: '#f85f48',
     borderTopWidth: 1,
     borderTopLeftRadius: 15,
+    borderBottomRightRadius: 15,
     alignItems: 'center'
   }
 };

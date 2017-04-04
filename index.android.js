@@ -22,8 +22,12 @@ import LoginPage from './common/loginPage';
 import FreeTopLine from './common/freeTopline';
 import SpeechesAll from './common/speechesAll';
 import LoginVerify from './common/loginVerify';
+import { dailyHeadlinesListStore } from './common/stores/dailyHeadListStore.js';
 const styles = {};
-
+import {useStrict} from 'mobx';
+import {Provider, inject} from 'mobx-react';
+useStrict(true);
+const dailyHLiStore = new dailyHeadlinesListStore();
 class AP extends Component {
   static propTypes = {
   };
@@ -42,26 +46,28 @@ class AP extends Component {
   render() {
     const defaultName = 'mainPage';
     const defaultComponent = HomePage;
-    console.log('and', this.props.navigation);
-    //const { navigate } = this.props.navigation;
-    //const defaultComponent = LoginPage;
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          //height: 100,//100vh
-          //marginTop: 0,
-          justifyContent: 'center'
-        }}
-      >{
-        this.state.navigatorTest ?
-        <SpeechesAll/> :
-       <HomePage
-         navigation={this.props.navigation}
-       />
-       }
-      </View>
+      <Provider
+          dailyHLiStore={dailyHLiStore}
+      >
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            //height: 100,//100vh
+            //marginTop: 0,
+            justifyContent: 'center'
+          }}
+        >
+          {
+            this.state.navigatorTest ?
+            <SpeechesAll/> :
+            <HomePage
+              navigation={this.props.navigation}
+            />
+           }
+        </View>
+      </Provider>
     );
   }
 }
