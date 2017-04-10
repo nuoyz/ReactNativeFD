@@ -5,40 +5,39 @@ let a = true;
 import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
 const styles = StyleSheet.create({
   'headline-list': {
-    backgroundColor: 'white',
-    marginLeft: 8,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    height: 193,
+    marginBottom: 10,
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
   },
   'headline-item': {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 58,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderBottomColor: '#e5e5e5'
-    //height: 40,
+    height: 45,
+    marginLeft: 8,
   },
   'headline-item-avatar': {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     alignItems: 'center',
-    marginRight: 4,
+    marginRight: 15,
     borderWidth: 1,
-    borderColor: '#e5e5e5',
-    //borderStyle: 'solid',
-    borderRadius: 20
+    borderRadius: 22
   },
   'headline-item-info': {
   },
   'headline-item-title': {
     fontWeight: '600',
-    fontSize: 14,
+    fontSize: 15,
     color: '#333'
   },
   'headline-item-name': {
-    //fontSize: 13,
-    //color: '#b3b3b3'
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  voicepause: {
+    //borderColor: 'red',
   }
 });
 function dailyHeadlinesRender(data, index) {
@@ -57,7 +56,6 @@ function dailyHeadlinesRender(data, index) {
            <TouchableHighlight
               onPress={
                 () => {
-                  //console.log('duble click 666666666');
                   if (!this.state.voiceStatePlay) {
                     ReactNativeAudioStreaming
                       .play(voiceUrl, {
@@ -74,35 +72,44 @@ function dailyHeadlinesRender(data, index) {
               }
           >
             <View>
-            {
-              this.state.voiceStatePlay ?
+              {
+                this.state.voiceStatePlay ?
+                <Image
+                  source={require('./img/icon_pause_top_line.png')}
+                  style={{
+                    position: 'absolute',
+                    top: 14,
+                    left: 16,
+                    zIndex: 2,
+                    width: 13,
+                    height: 15
+                  }}
+                /> :
+                <Image
+                  source={require('./img/icon_play_top_line.png')}
+                  style={{
+                    position: 'absolute',
+                    top: 14,
+                    left: 16,
+                    zIndex: 2,
+                    width: 13,
+                    height: 15
+                  }}
+                />
+              }
               <Image
-                source={require('./img/voicepause.png')}
+                //style={styles['headline-item-avatar']}
                 style={{
-                  position: 'absolute',
-                  top: 14,
-                  left: 12,
-                  zIndex: 2,
-                  width: 14,
-                  height: 14
+                  width: 44,
+                  height: 44,
+                  alignItems: 'center',
+                  marginRight: 15,
+                  borderWidth: 2,
+                  //borderColor: '#f85f48',
+                  borderRadius: 22,
                 }}
-              /> :
-              <Image
-                source={require('./img/voiceplay.png')}
-                style={{
-                  position: 'absolute',
-                  top: 14,
-                  left: 12,
-                  zIndex: 2,
-                  width: 14,
-                  height: 14
-                }}
+                source={{uri: data.respondent.avatar}}
               />
-            }
-            <Image
-              style={styles['headline-item-avatar']}
-              source={{uri: data.respondent.avatar}}
-            />
             </View>
           </TouchableHighlight>
         </View>
@@ -117,8 +124,8 @@ function dailyHeadlinesRender(data, index) {
           <View
             style={styles['headline-item-name']}
           >
-            <Text>{data.respondent.nickname}</Text>
-            <Text>{data.respondent.title}</Text>
+            <Text style={{fontSize: 13, color: '#333'}}>{data.respondent.nickname} </Text>
+            <Text stylr={{fontSize: 13, color: '#b3b3b3'}}>{data.respondent.title}</Text>
           </View>
         </View>
       </View>
@@ -134,7 +141,6 @@ function dailyHeadlinesRender(data, index) {
          <TouchableHighlight
             onPress={
               () => {
-                //console.log('duble click 666666666');
                 if (!this.state.voiceStatePlay) {
                   ReactNativeAudioStreaming
                     .play(voiceUrl, {
@@ -192,7 +198,7 @@ function dailyHeadlinesRender(data, index) {
         <View
           style={styles['headline-item-name']}
         >
-          <Text>{data.respondent.nickname}</Text>
+          <Text style={{color: 'black'}}>{data.respondent.nickname}</Text>
           <Text>{data.respondent.title}</Text>
         </View>
       </View>
@@ -208,10 +214,15 @@ class DailyHeadlinesList extends Component {
   static contextTypes = {}
   state = {
     voiceStatePlay: false,
+    //circualAni: new Animated.Value(0),  // Initial value for opacity: 0
   }
   componentWillMount() {
     const {dailyHLiStore} = this.props;
     dailyHLiStore.getdailyHLData();
+  }
+  componentDidMount() {
+    //this.state.circualAni.setValue(1);
+    //Animated.timing(this.state.circualAni, {toValue: -145}).start;
   }
   render() {
     const {dailyHLiStore: {dailyHeadlinesList}} = this.props;

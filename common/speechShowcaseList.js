@@ -5,48 +5,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     //paddingBottom: 10,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   'speech-showcase-title': {
-    height: 48,
-    paddingLeft: 20,
-    paddingRight: 20,
+    height: 50,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 390,
-  },
-  'childText': {
-    width: 50,
-    height: 50,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'black'
+    width: 331,
   },
   'speechList': {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
-    marginLeft: 8,
-    marginRight: 8
+    //marginLeft: 8,
+    //marginRight: 8,
+    marginBottom: 26
   },
   'speechList-item': {
-     marginRight: 4,
-     marginLeft: 4,
+     //marginRight: 4,
+     marginLeft: 15,
   },
   'speechList-item-img': {
-    width: 110,
-    height: 110
+    width: 118,
+    height: 118,
   },
   'speechList-item-title': {
     width: 110,
-    fontSize: 13,
+    fontSize: 12,
+    lineHeight: 20,
     color: '#3f3f3f',
-    fontWeight: 'bold'
+    fontWeight: '600'
   },
   'speechList-item-editor': {
-     fontSize: 13,
+     fontSize: 12,
      color: '#999',
      fontWeight: 'normal'
   },
@@ -67,11 +60,11 @@ function speechListRender (data, index) {//[]
           <Image
             style={{
               position: 'absolute',
-              width: 24,
-              height: 20,
+              width: 28,
+              height: 25,
               zIndex: 2,
               top: 5,
-              left: 4
+              left: 5
             }}
             source={require('./img/newtag.png')}
           /> : null
@@ -85,7 +78,7 @@ function speechListRender (data, index) {//[]
             <Text
               style={{
                 position: 'absolute',
-                top: 90,
+                top: 94,
                 left: 4,
                 color: '#fff',
                 fontSize: 12
@@ -149,9 +142,9 @@ class SpeechShowcaseList extends Component {
           >
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 color: '#3f3f3f',
-                fontWeight: 'bold',
+                //fontWeight: 'bold',
               }}
             >
               分答小讲
@@ -162,7 +155,7 @@ class SpeechShowcaseList extends Component {
                 color: '#999'
               }}
             >
-              查看答案
+              查看答案 >
             </Text>
           </View>
           <View

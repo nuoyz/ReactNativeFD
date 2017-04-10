@@ -26,6 +26,8 @@ import { dailyHeadlinesListStore } from './common/stores/dailyHeadListStore.js';
 const styles = {};
 import {useStrict} from 'mobx';
 import {Provider, inject} from 'mobx-react';
+import QuestionDetails from './common/questionDetails';
+//import StatusPage from './common/statusPage';
 useStrict(true);
 const dailyHLiStore = new dailyHeadlinesListStore();
 class AP extends Component {
@@ -54,8 +56,6 @@ class AP extends Component {
           style={{
             flex: 1,
             flexDirection: 'column',
-            //height: 100,//100vh
-            //marginTop: 0,
             justifyContent: 'center'
           }}
         >
@@ -74,7 +74,7 @@ class AP extends Component {
 export default AP;
 
 const App = StackNavigator({
-  Home: { screen: AP },
+  Home: { screen: AP},// //StatusPage
   Login: {screen: LoginPage},
   SpeechesAll: {screen: SpeechesAll},
   LoginVerify: {screen: LoginVerify}

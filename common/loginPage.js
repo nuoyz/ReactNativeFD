@@ -15,6 +15,10 @@ import Main from './main.js';
 import HomePage from './homePage.js';
 let b = 0;
 const styles = StyleSheet.create({
+  left: {
+    flexDirection: 'row',
+    marginLeft: 11,
+  },
   login: {
     flexGrow: 1,
     backgroundColor: '#f5f5f5',
@@ -95,7 +99,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   listTitle: {
-    
+    color: 'black',
+    marginLeft: 10
   },
   userHeader: {
     justifyContent: 'flex-start'
@@ -318,13 +323,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  我的分答主页
-                </Text>
+                  <Image //！！require 模块引入限制
+                    style={{
+                      width: 17,
+                      height: 20,
+                    }}
+                    source={require('./img/fanta_ic_my_account.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我的分答主页
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -344,13 +360,24 @@ class LoginPage extends Component {
                     alignItems: 'center'
                   }}
                 >
-                  <Text
-                    style={
-                      styles.listTitle
-                    }
+                  <View
+                    style={styles.left}
                   >
-                    我的分币
-                  </Text>
+                    <Image
+                      style={{
+                        width: 20,
+                        height: 20,
+                      }}
+                      source={require('./img/fanta_ic_my_account.png')}
+                    />
+                    <Text
+                      style={
+                        styles.listTitle
+                      }
+                    >
+                      我的分币
+                    </Text>
+                  </View>
                   <Text
                     style={{
                       color: 'red'
@@ -363,13 +390,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  我问
-                </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                    }}
+                    source={require('./img/fanta_ic_my_questions.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我问
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -377,13 +415,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  我答
-                </Text>
+                  <Image
+                    style={{
+                      width: 21,
+                      height: 20,
+                    }}
+                    source={require('./img/fanta_ic_my_answers.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我答
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -391,13 +440,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  我听
-                </Text>
+                  <Image
+                    style={{
+                      width: 21,
+                      height: 16,
+                    }}
+                    source={require('./img/ic_my_visited.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我听
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -405,13 +465,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  我收听的人
-                </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                    }}
+                    source={require('./img/icon_followed_account_list_entrance.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我收听的人
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -419,13 +490,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  快问
-                </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 17,
+                    }}
+                    source={require('./img/fanta_ic_my_account.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    快问
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -433,15 +515,46 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text>我的小讲</Text>
+                <View
+                  style={styles.left}
+                >
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 19,
+                    }}
+                    source={require('./img/icon_my_xj.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    我的小讲
+                  </Text>
+                </View>
               </View>
               <View
                 style={styles.helpTitle}
               >
-                <Text
+                <View
+                  style={styles.left}
                 >
-                  帮助
-                </Text>
+                  <Image
+                    style={{
+                      width: 15,
+                      height: 20,
+                    }}
+                    source={require('./img/icon_help.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    帮助
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -449,13 +562,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  结算说明
-                </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 18,
+                    }}
+                    source={require('./img/ic_settlement.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    结算说明
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>
@@ -463,13 +587,24 @@ class LoginPage extends Component {
               <View
                 style={styles.userListStyle}
               >
-                <Text
-                  style={
-                    styles.listTitle
-                  }
+                <View
+                  style={styles.left}
                 >
-                  关于分达
-                </Text>
+                  <Image
+                    style={{
+                      width: 20,
+                      height: 20,
+                    }}
+                    source={require('./img/ic_info.png')}
+                  />
+                  <Text
+                    style={
+                      styles.listTitle
+                    }
+                  >
+                    关于分达
+                  </Text>
+                </View>
                 <Text>
                   >
                 </Text>

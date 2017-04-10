@@ -38,6 +38,7 @@
 		D855161EDB134504B061B1DC /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC314787B3F4DDAAD38F530 /* libRNSound.a */; };
 		FEF53B3C136C4D38A87D536B /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D0396A574042E787AD2B1E /* libRNAudio.a */; };
 		CB629241B3214A3585307423 /* libReactNativeAudioStreaming.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E2E3AA02BE46B58D93FA5F /* libReactNativeAudioStreaming.a */; };
+		7D9EC044064F4526BCF97548 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83201C753CAD495DB844FA1B /* libRNSVG.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +264,8 @@
 		07D0396A574042E787AD2B1E /* libRNAudio.a */ = {isa = PBXFileReference; name = "libRNAudio.a"; path = "libRNAudio.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		F2DE17211E4441ECBFF7B41E /* ReactNativeAudioStreaming.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeAudioStreaming.xcodeproj"; path = "../node_modules/react-native-audio-streaming/ios/ReactNativeAudioStreaming.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		96E2E3AA02BE46B58D93FA5F /* libReactNativeAudioStreaming.a */ = {isa = PBXFileReference; name = "libReactNativeAudioStreaming.a"; path = "libReactNativeAudioStreaming.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		EB1270B55D2946CA9BA9BAEB /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		83201C753CAD495DB844FA1B /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +295,7 @@
 				D855161EDB134504B061B1DC /* libRNSound.a in Frameworks */,
 				FEF53B3C136C4D38A87D536B /* libRNAudio.a in Frameworks */,
 				CB629241B3214A3585307423 /* libReactNativeAudioStreaming.a in Frameworks */,
+				7D9EC044064F4526BCF97548 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +465,7 @@
 				6643B277330546718514AB8D /* RNSound.xcodeproj */,
 				D9F5284B778946E8A75EC067 /* RNAudio.xcodeproj */,
 				F2DE17211E4441ECBFF7B41E /* ReactNativeAudioStreaming.xcodeproj */,
+				EB1270B55D2946CA9BA9BAEB /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -991,12 +996,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1020,12 +1027,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1050,6 +1059,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1073,6 +1083,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1105,12 +1116,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1143,12 +1156,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
 					"$(SRCROOT)\..\node_modules\react-native-audio-streaming\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1176,6 +1191,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1200,6 +1216,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

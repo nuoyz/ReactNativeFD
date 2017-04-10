@@ -1,18 +1,19 @@
 import React, {Component, PropTypes} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 const styles = {
   'headline-container': {
-    height: 50,
+    height: 42,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'center',
     //color: '#e5e5e5', isInvalid
     //fontSize: 15
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e5e5e5'
   },
   'headline-body': {
-    width: 390,
-    paddingLeft: 20,
-    paddingRight: 20,
+    width: 331,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -24,13 +25,13 @@ const styles = {
   },
   'text-daily': {
     //color: '#fff', isInvalid
-    width: 92,
-    height: 28,
+    width: 68,
+    height: 22,
     marginRight: 6,
     backgroundColor: '#f85f48',
     borderTopWidth: 1,
-    borderTopLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 8,
+    borderBottomRightRadius: 8,
     alignItems: 'center'
   }
 };
@@ -56,16 +57,21 @@ class TopLineHead extends Component {
             >
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: 10,
                   textAlign: 'center',
-                  lineHeight: 24
+                  lineHeight: 16,
+                  color: 'white'
                 }}
               >
                 每日头条
               </Text>
             </View>
             <View>
-              <Text>
+              <Text
+                style={{
+                  fontSize: 12
+                }}
+              >
                 免费
               </Text>
             </View>
@@ -76,10 +82,14 @@ class TopLineHead extends Component {
               navigate('Login');
             }}
           >
-           <View>
-            <Text>
-              查看全部 >
+           <View style={{flexDirection: 'row'}}>
+            <Text style={{fontSize: 13}}>
+              查看全部 
             </Text>
+            <Image
+              style={{width: 8, height: 11, marginTop: 4, marginLeft: 2}}
+              source={require('./img/icon_top_line_list_entrance.png')}
+            />
            </View>
           </TouchableOpacity>
          </View>

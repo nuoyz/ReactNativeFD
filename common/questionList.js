@@ -5,14 +5,16 @@ import {observable, action} from 'mobx'
 const styles = StyleSheet.create({
   'questionList': {
     //backgroundColor: 'white',
-    marginTop: 8,
+    marginBottom: 10
   },
   'questionList-item': {
-    //width: 390
+    //width: 319,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 22,
     backgroundColor: 'white',
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginBottom: 10
   },
   'questionList-anwser': {
     marginTop: 14,
@@ -29,10 +31,11 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   'questionList-anwser-voice': {
-     width: 160,
-     height: 40,
+     position: 'relative',
+     width: 173,
+     height: 41,
      borderRadius: 22,
-     marginLeft: 16,
+     //left: -4,
      flexDirection: 'row',
      justifyContent: 'center',
      alignItems: 'center',
@@ -43,8 +46,8 @@ const styles = StyleSheet.create({
     height: 24,
     position: 'relative',
     //marginLeft: -10
-    left: 27,
-    top: 16,
+    left: 11,
+    top: 17,
     zIndex: 2
   },
   'questionList-anwser-number': {
@@ -76,12 +79,20 @@ function playVoice(url, data) {
        }).catch((err)=>{
        });
 }
-function questionListRender(data) {
+function questionListRender(data, i) {
+  const key = parseInt(Math.random(), 10);
   return (
     <View
+      key={key}
       style={styles['questionList-item']}
     >
-      <Text>
+      <Text
+        style={{
+          fontSize: 16,
+          color: '#3f3f3f',
+          //fontWeight: '100'
+        }}
+      >
         {data.question.content}
       </Text>
       <View
@@ -101,7 +112,7 @@ function questionListRender(data) {
                 left: 26
               }}
               source={require('./img/verified.png')}
-            /> : <Text></Text>
+            /> : null
           }
           <Image
             style={styles['questionList-anwser-img']}
@@ -139,12 +150,12 @@ function questionListRender(data) {
               style={{
                 textAlign: 'center',
                 color: 'white',
-                marginRight: 24
+                marginRight: 48,
+                fontSize: 13
               }}
             >
               {data.action === 'free_recommend' ? '限时免费' : '一元偷偷听'}
             </Text>
-            
           </View>
         </TouchableOpacity>
         <View
@@ -164,31 +175,41 @@ function questionListRender(data) {
         style={styles['anwser-editor']}
       >
         <View>
-          <Text
+          <View
             style={{
-              color: '#3f3f3f',
-              fontSize: 15
+              flexDirection: 'row'
             }}
           >
-            {data.actor.nickname}
-          </Text>
-          {
-            data.action === 'recommend' ?
-              <Image
-                style={{
-                  position: 'absolute',
-                  width: 40,
-                  height: 20,
-                  left: 78,
-                  top: 0
-                }}
-                source={require('./img/recommendTag.png')}
-              /> : null
-          }
+            <Text
+              style={{
+                color: '#3f3f3f',
+                fontSize: 16,
+                fontWeight: '200',
+                letterSpacing : 4
+              }}
+            >
+              {data.actor.nickname}
+            </Text>
+            {
+              data.action === 'recommend' ?
+                <Image
+                  style={{
+                    //position: 'absolute',
+                    width: 30,
+                    height: 15,
+                    marginLeft: 6,
+                    marginTop: 3
+                    //left: 78,
+                    //top: 0
+                  }}
+                  source={require('./img/recommendTag.png')}
+                /> : null
+            }
+          </View>
           <Text
             style={{
               color: '#999',
-              fontSize: 13
+              fontSize: 12
             }}
           >
             {data.actor.title}
@@ -213,6 +234,8 @@ function questionListRender(data) {
               style={{
                 width: 48,
                 height: 29,
+                marginLeft: 12,
+                marginTop: -4
               }}
               source={require('./img/follow.png')}
             />
@@ -254,7 +277,7 @@ class QuestionList extends Component {
       console.log('err', err);
     })
   }
-  endReachedFetchData = () => {
+  endReachedFetchData = () => {//触到底部获取数据
     const {min_id, order_score} = this.state;
     let {page} = this.state;
     fetch(`http://fd.zaih.com/feed_api/v1/self/timeline?page=${page}&per_page=20&min_id=${min_id}&order_score=${order_score}`,
@@ -267,7 +290,7 @@ class QuestionList extends Component {
           const {questionListArray = []} = this.state;
           const lastArrEle = response[response.length - 1];
           const newPage = page++;
-          const newQuestionList = [...response, ...questionListArray];
+          const newQuestionList = [...questionListArray, ...response];
           this.setState({
             questionListArray: newQuestionList,
             questionList: this.state.ds.cloneWithRows(newQuestionList),
