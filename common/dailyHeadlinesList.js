@@ -1,8 +1,10 @@
 import React, {Component, PropTypes} from 'react';
 import {View, Text, Image ,StyleSheet, TouchableHighlight} from 'react-native';
 import {observer, inject} from 'mobx-react';
-let a = true;
 import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+let a = true;
+let timeControl;
 const styles = StyleSheet.create({
   'headline-list': {
     flexDirection: 'column',
@@ -53,6 +55,7 @@ function dailyHeadlinesRender(data, index) {
         <View
           role="presentation"
         > 
+           
            <TouchableHighlight
               onPress={
                 () => {
@@ -62,16 +65,29 @@ function dailyHeadlinesRender(data, index) {
                         showIniOSMediaCenter: true,
                         showInAndroidNotifications: true
                       });
-                    this.setState({voiceStatePlay: true})
+                    this.circleAnimation(`circularProgress-${index}`, 100, (data.answer.duration)/60);//s ms
+                    this.setState({voiceStatePlay: true}, ()=>{
+                     timeControl = setInterval(()=>{
+                        this.setState({[`fill-${index}`]: this.state[`fill-${index}`]++});
+                      }, 1000);
+                    })
                   } else {
                     ReactNativeAudioStreaming
                       .pause();
-                    this.setState({voiceStatePlay: true})
+                    this.setState({voiceStatePlay: true}, ()=>{
+                      clearInterval(timeControl);
+                    })
                   }
                 }
               }
           >
-            <View>
+            <View
+              style={{
+                width: 46,
+                height: 46,
+                borderRadius: 23
+              }}
+            >
               {
                 this.state.voiceStatePlay ?
                 <Image
@@ -97,6 +113,21 @@ function dailyHeadlinesRender(data, index) {
                   }}
                 />
               }
+              <AnimatedCircularProgress
+                ref={`circularProgress-${index}`}
+                style={{
+                  position: 'absolute',
+                  top: 1,
+                  left: 1,
+                  zIndex: 3
+                }}
+                size={42}
+                width={2}
+                //fill={0}
+                fill={(this.state)[`fill-${index}`] || 0}
+                tintColor="#f85f48"
+                backgroundColor="white"
+              />
               <Image
                 //style={styles['headline-item-avatar']}
                 style={{
@@ -221,8 +252,14 @@ class DailyHeadlinesList extends Component {
     dailyHLiStore.getdailyHLData();
   }
   componentDidMount() {
-    //this.state.circualAni.setValue(1);
-    //Animated.timing(this.state.circualAni, {toValue: -145}).start;
+    /*if(this.refs.circularProgress) {
+      this.refs.circularProgress.performLinearAnimation(100, 8000);
+    }*/
+  }
+  circleAnimation(ref, p, d) {
+    if(this.refs[ref]) {
+      this.refs[ref].performLinearAnimation(p, d);
+    }
   }
   render() {
     const {dailyHLiStore: {dailyHeadlinesList}} = this.props;

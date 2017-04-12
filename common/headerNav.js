@@ -97,17 +97,7 @@ class HeaderNav extends Component {
           <View>
             <TouchableOpacity
               onPress={() => {
-                //console.log('222222222222');
-                //const { navigator } = this.props;
                 navigate('Home')
-                /*navigator.push({
-                    name: 'loginPageComponent',
-                    component: LoginPage,
-                    //这里多出了一个 params 其实来自于<Navigator 里的一个方法的参数...
-                    params: {
-                        id: 'loginPageComponent'
-                    }
-                });*/
               }}
             >
 

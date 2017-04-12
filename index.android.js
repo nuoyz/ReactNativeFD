@@ -27,7 +27,7 @@ const styles = {};
 import {useStrict} from 'mobx';
 import {Provider, inject} from 'mobx-react';
 import QuestionDetails from './common/questionDetails';
-//import StatusPage from './common/statusPage';
+import StatusPage from './common/statusPage';
 useStrict(true);
 const dailyHLiStore = new dailyHeadlinesListStore();
 class AP extends Component {
@@ -61,7 +61,7 @@ class AP extends Component {
         >
           {
             this.state.navigatorTest ?
-            <SpeechesAll/> :
+            <LoginPage/> :
             <HomePage
               navigation={this.props.navigation}
             />

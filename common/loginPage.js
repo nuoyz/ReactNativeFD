@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   userListStyle: {
-    height: 40,
+    height: 52,
     backgroundColor: 'white',
     flexDirection: 'row',
     borderStyle: 'solid',
     paddingLeft: 8,
     paddingRight: 8,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderColor: '#e5e5e5',
     justifyContent: 'space-between',
     alignItems: 'center'
@@ -446,7 +446,7 @@ class LoginPage extends Component {
                   <Image
                     style={{
                       width: 21,
-                      height: 16,
+                      height: 18,
                     }}
                     source={require('./img/ic_my_visited.png')}
                   />
@@ -496,9 +496,9 @@ class LoginPage extends Component {
                   <Image
                     style={{
                       width: 20,
-                      height: 17,
+                      height: 20,
                     }}
-                    source={require('./img/fanta_ic_my_account.png')}
+                    source={require('./img/ic_search_button.png')}
                   />
                   <Text
                     style={
