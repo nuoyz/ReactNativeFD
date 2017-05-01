@@ -63,38 +63,43 @@ const styles = StyleSheet.create({
 
 function playVoice(url, data) {
   fetch('http://fd.zaih.com/api/v2/questions/90000035338507011128/listen',
-       {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {"source": data.source ,"voice_id": data.voice_id}
-       }).then((res) => {
-           return res.json();
-       }).then((response) => {
-        ReactNativeAudioStreaming.play(
-          response.url,
-          {showIniOSMediaCenter: true, showInAndroidNotifications: true}
-        );
-       }).catch((err)=>{
-       });
+    {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+    },
+      body: {"source": data.source ,"voice_id": data.voice_id}
+    }).then((res) => {
+         return res.json();
+    }).then((response) => {
+      ReactNativeAudioStreaming.play(
+        response.url,
+        {showIniOSMediaCenter: true, showInAndroidNotifications: true}
+      );
+    }).catch((err)=>{
+    });
 }
 function questionListRender(data, i) {
+  const {question} = data;
   const key = parseInt(Math.random(), 10);
   return (
     <View
       key={key}
       style={styles['questionList-item']}
     >
-      <Text
-        style={{
-          fontSize: 16,
-          color: '#3f3f3f',
-          //fontWeight: '100'
-        }}
+      <TouchableOpacity
+        onPress={()=>this.pushNavigater(question.id)}
       >
-        {data.question.content}
-      </Text>
+        <Text
+          style={{
+            fontSize: 16,
+            color: '#3f3f3f',
+            //fontWeight: '100'
+          }}
+        >
+          {data.question.content}
+        </Text>
+      </TouchableOpacity>
       <View
         style={styles['questionList-anwser']}
       >
@@ -301,6 +306,11 @@ class QuestionList extends Component {
         }
      });
   }
+  pushNavigater(id) {
+    const {navigate = {}} = this.props.navigation;
+    console.log('this.props.navigation', this.props.navigation);
+    navigate('QuestionDetails', {id, });
+  }
   componentWillMount() {
     fetch('http://fd.zaih.com/feed_api/v1/self/timeline?page=1&per_page=20&is_refresh=true',
          {
@@ -345,7 +355,7 @@ class QuestionList extends Component {
              }
           }
           renderRow={(rowData) => {
-            return (questionListRender(rowData));
+            return (questionListRender.apply(this, [rowData]));
           }}
         />
       </View>

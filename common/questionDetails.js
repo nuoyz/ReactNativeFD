@@ -1,37 +1,26 @@
-import React, {Component, propTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import superagent from 'superagent';
 const styles = {};
 
 class QuestionDetails extends Component {
-  static propTypes = {}
+  static propTypes = {
+    params: PropTypes.object
+  }
   static contextTypes = {}
   state={}
   componentWillMount() {
-    /*fetch(
-      'https://apis-fd.zaih.com/v1/questions/90000035532557849161',
-       {method: 'get'})
-      .then((res)=>{
-        console.info('res res', res);
-        res.blob();
-      })
-      .then((response)=>{
-        console.info('resMsg resMsg', response);
-        this.setState({questionsDefails: response});
-      })
-      .catch((err)=>{
-        console.log('err', err);
-      })*/
-      const self = this;
-      superagent
-        .get('https://apis-fd.zaih.com/v1/questions/90000035532557849161')
-        .end(function (err, sres) {
-          if (err) {
-            console.log('error', err);
-          }
-          console.info('resMsg resMsg', sres.text);
-          self.setState({questionsDefails: JSON.parse(sres.text)});
-        });
+    const { params = {} } = this.props.navigation.state;
+    const self = this;
+    superagent
+      .get(`https://apis-fd.zaih.com/v1/questions/${params.id}`)
+      .end(function (err, sres) {
+        if (err) {
+          console.log('error', err);
+        }
+        console.info('resMsg resMsg', sres.text);
+        self.setState({questionsDefails: JSON.parse(sres.text)});
+      });
   }
   render() {
     const {navigation = {}} = this.props;
@@ -39,7 +28,6 @@ class QuestionDetails extends Component {
     if (!questionsDefails) {
       return <Text>loadding</Text>;
     }
-    console.info('questionsDefails', questionsDefails);
     return (
       <View
        style={{
@@ -91,8 +79,6 @@ class QuestionDetails extends Component {
               </Text>
 
             </View>
-          
-
             <Text
               style={{
                 width: 252,

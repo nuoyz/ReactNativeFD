@@ -212,7 +212,7 @@ class HomePage extends Component {
               >
                 <Main
                   tabLabel="收听"
-                  navigation={navigation}
+                  navigation={this.props.navigation}
                 />
                 <SpeechesAll tabLabel="小讲"/>
               </ScrollableTabView>

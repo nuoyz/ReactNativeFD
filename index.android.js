@@ -77,7 +77,8 @@ const App = StackNavigator({
   Home: { screen: AP},// //StatusPage
   Login: {screen: LoginPage},
   SpeechesAll: {screen: SpeechesAll},
-  LoginVerify: {screen: LoginVerify}
+  LoginVerify: {screen: LoginVerify},
+  QuestionDetails: {screen: QuestionDetails} 
 },{
   //headerMode: 'none',
   mode: 'card',

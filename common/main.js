@@ -11,18 +11,13 @@ class Main extends Component {
   static contextTypes = {}
   render() {
     const {navigation = {}} = this.props;
-    //console.log('navigation', this.props.navigation);
     return (
-      <View
-       style={{
-        //backgroundColor: '#f5f5f5'
-       }}
-      >
+      <View>
         <ScrollView>
           <TopLineHead navigation={navigation}/>
           <DailyHeadlinesList/>
           <SpeechShowcaseList/>
-          <QuestionList/>
+          <QuestionList navigation={navigation}/>
         </ScrollView>
       </View>
     )
